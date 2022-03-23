@@ -10,5 +10,5 @@ const lal = {
   kek: "lel",
   ggg: "sss",
   sos: "kek",
-  Danila: "this is my changes",
+  Danila: "this is not my change",
 };
