@@ -9,4 +9,5 @@ const store = configureStore({
 const lal = {
   kek: "lel",
   ggg: "sss",
+  sos: "kek",
 };
