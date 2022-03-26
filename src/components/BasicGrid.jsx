@@ -17,6 +17,9 @@ export default function BasicGrid() {
   return (
     <div className={style.container}>
       <Grid container spacing="20px" justifyContent="flex-end">
+        <Grid item xs={12}>
+          <Item>Logo</Item>
+        </Grid>
         <Grid item xs={4}>
           <Item>Filter</Item>
         </Grid>
