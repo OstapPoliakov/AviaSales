@@ -1,8 +1,8 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-/* import Box from "@mui/material/Box"; */
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
+import logo from "../logo.svg";
 import style from "./style.module.scss";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -18,7 +18,9 @@ export default function BasicGrid() {
     <div className={style.container}>
       <Grid container spacing="20px" justifyContent="flex-end">
         <Grid item xs={12}>
-          <Item>Logo</Item>
+          <Item className={style.logo}>
+            <img src={logo} alt="logo" />
+          </Item>
         </Grid>
         <Grid item xs={4}>
           <Item>Filter</Item>
