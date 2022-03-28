@@ -29,19 +29,7 @@ export default function BasicGrid() {
           <Item>Tabs</Item>
         </Grid>
         <Grid item xs={8}>
-          <Item>Ticket1</Item>
-        </Grid>
-        <Grid item xs={8}>
-          <Item>Ticket2</Item>
-        </Grid>
-        <Grid item xs={8}>
-          <Item>Ticket3</Item>
-        </Grid>
-        <Grid item xs={8}>
-          <Item>Ticket4</Item>
-        </Grid>
-        <Grid item xs={8}>
-          <Item>Ticket5</Item>
+          <Item>Tickets</Item>
         </Grid>
         <Grid item xs={8}>
           <Item>Button</Item>
