@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import "./App.css";
 import BasicGrid from "./components/BasicGrid";
 import ticketsAPI from "./api/api";
+import { getTicketsThunk } from "./toolkitRedux/Reducer";
 
 function App() {
   const [searchId, setSID] = useState("");
   const [tickets, setTickets] = useState([]);
+  const ticketsRedux = useSelector((state) => state.tickets.tickets);
+  const dispatch = useDispatch();
 
   /*   function getSearchIdFromServer() {
     ticketsAPI
@@ -15,7 +19,8 @@ function App() {
   } */
 
   console.log("searchId:", searchId);
-  console.log("tickets", tickets);
+  console.log("tickets: ", tickets);
+  console.log("ticketsRedux: ", ticketsRedux);
 
   function getSearchIdFromServer() {
     ticketsAPI.getSearchId().then((res) => setSID(res.data.searchId));
@@ -42,6 +47,7 @@ function App() {
   useEffect(() => {
     if (searchId) {
       getTicketsFromServer();
+      dispatch(getTicketsThunk(searchId));
     }
   }, [searchId]);
 
