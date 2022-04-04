@@ -3,51 +3,28 @@ import ticketsAPI from "../api/api";
 
 export const getTicketsThunk = createAsyncThunk(
   "tickets/getTicketsThunk",
-  async (searchId) => {
-    const response = await ticketsAPI.getTickets(searchId);
-    /*       dispatch(setTickets(response.data)); */
-    return response.data;
+  async function (searchId, { rejectWithValue }) {
+    try {
+      const { data, stop } = await ticketsAPI
+        .getTickets(searchId)
+        .then((res) => res);
+      console.log("data: ", data);
+      console.log("stop: ", stop);
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
   }
 );
 
 const ticketSlice = createSlice({
   name: "tickets",
   initialState: {
-    tickets: [
-      /* // Цена в рублях
-        price: 0,
-        // Код авиакомпании (iata)
-        carrier: '',
-        // Массив перелётов.
-        // В тестовом задании это всегда поиск "туда-обратно" значит состоит из двух элементов
-        segments: [
-          {
-            // Код города (iata)
-            origin: '',
-            // Код города (iata)
-            destination: '',
-            // Дата и время вылета туда
-            date: '',
-            // Массив кодов (iata) городов с пересадками
-            stops: [],
-            // Общее время перелёта в минутах
-            duration: 0,
-          },
-          {
-            // Код города (iata)
-            origin: '',
-            // Код города (iata)
-            destination: '',
-            // Дата и время вылета обратно
-            date: '',
-            // Массив кодов (iata) городов с пересадками
-            stops: [],
-            // Общее время перелёта в минутах
-            duration: 0, */
-    ],
+    tickets: [],
     stop: false,
     status: null,
-    error: false,
+    error: null,
   },
   reducers: {
     setTickets(state, action) {
@@ -60,16 +37,17 @@ const ticketSlice = createSlice({
   extraReducers: {
     [getTicketsThunk.pending]: (state) => {
       /* eslint no-param-reassign: ["error", { "props": false }] */
-      state.status = "loading...";
-      state.error = false;
+      state.status = "loading";
+      state.error = null;
     },
     [getTicketsThunk.fulfilled]: (state, action) => {
       state.status = "resolved";
       state.tickets = action.payload;
+      state.stop = action.payload;
     },
-    [getTicketsThunk.rejected]: (state) => {
-      state.error = true;
+    [getTicketsThunk.rejected]: (state, action) => {
       state.status = "rejected";
+      state.error = action.payload;
     },
   },
 });
