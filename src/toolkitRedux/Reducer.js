@@ -5,11 +5,9 @@ export const getTicketsThunk = createAsyncThunk(
   "tickets/getTicketsThunk",
   async function (searchId, { rejectWithValue }) {
     try {
-      const { data, stop } = await ticketsAPI
-        .getTickets(searchId)
-        .then((res) => res);
+      const { data } = await ticketsAPI.getTickets(searchId).then((res) => res);
       console.log("data: ", data);
-      console.log("stop: ", stop);
+      console.log("stop thunk: ", data.stop);
 
       return data;
     } catch (error) {
@@ -22,7 +20,7 @@ const ticketSlice = createSlice({
   name: "tickets",
   initialState: {
     tickets: [],
-    stop: false,
+    stop: "xyu",
     status: null,
     error: null,
   },
@@ -42,8 +40,10 @@ const ticketSlice = createSlice({
     },
     [getTicketsThunk.fulfilled]: (state, action) => {
       state.status = "resolved";
-      state.tickets = action.payload;
-      state.stop = action.payload;
+      state.tickets = action.payload.tickets;
+      state.stop = action.payload.stop;
+      console.log("payload.stop:", action.payload.stop);
+      console.log("state.stop:", state.stop);
     },
     [getTicketsThunk.rejected]: (state, action) => {
       state.status = "rejected";

@@ -37,7 +37,7 @@ function App() {
       await dispatch(getTicketsThunk(searchId));
       console.log("stop:", stop);
       //      setTickets((prev) => [data, ...prev]);
-      if (stop !== true) await getTicketsFromServer();
+      if (stop !== "xyu") await getTicketsFromServer();
     } catch (e) {
       console.log("err:", e);
       setTimeout(() => {
