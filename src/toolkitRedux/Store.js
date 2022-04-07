@@ -1,14 +1,12 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-
-const rootReducer = combineReducers({});
+import { configureStore } from "@reduxjs/toolkit";
+import ticketsReducer from "./Reducer";
 
 const store = configureStore({
-  reducer: rootReducer,
+  reducer: {
+    tickets: ticketsReducer,
+  },
 });
 
-const lal = {
-  kek: "lel",
-  ggg: "sss",
-  sos: "kek",
-  Danila: "this is not my change",
-};
+window.store = store;
+
+export default store;
